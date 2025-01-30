@@ -14,9 +14,12 @@ import {
 import { ViagemService } from '../services/viagem.service';
 import { Viagem } from '../entities/viagem.entity';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Viagem')
 @UseGuards(JwtAuthGuard)
 @Controller('/viagens')
+@ApiBearerAuth()
 export class ViagemController {
   constructor(private readonly viagemService: ViagemService) {}
 

@@ -5,6 +5,7 @@ import { VeiculoModule } from './veiculo/veiculo.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ViagemModule } from './viagem/viagem.module';
 import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { AuthModule } from './auth/auth.module';
     ViagemModule,
     AuthModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}

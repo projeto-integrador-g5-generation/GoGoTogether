@@ -14,9 +14,12 @@ import {
 import { VeiculoService } from '../services/veiculo.service';
 import { Veiculo } from '../entities/veiculo.entity';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Veiculo')
 @UseGuards(JwtAuthGuard)
 @Controller('/veiculos')
+@ApiBearerAuth()
 export class VeiculoController {
   constructor(private readonly veiculoService: VeiculoService) {}
 
