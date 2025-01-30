@@ -1,12 +1,13 @@
-import { Type } from 'class-transformer';
-import { IsDate, IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Viagem } from '../../viagem/entities/viagem.entity';
 
 @Entity({ name: 'tb_usuarios' })
 export class Usuario {
@@ -45,6 +46,9 @@ export class Usuario {
 
   @Column({ length: 5000 })
   foto: string;
+
+  @OneToMany(() => Viagem, (viagem) => viagem.usuario)
+  viagem: Viagem[];
 
   @CreateDateColumn()
   criado_em: Date;

@@ -2,40 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Usuario } from '../entities/usuario.entity';
 import { ILike, Repository } from 'typeorm';
-import { differenceInYears, isBefore } from 'date-fns';
-
-export function validarIdade(
-  dataNascimento: string | Date,
-  idadeMinima: number = 18,
-): void {
-  const dataNascimentoDate = new Date(dataNascimento);
-  const dataAtual = new Date();
-
-  // Calcular a diferença em anos
-  let idade = differenceInYears(dataAtual, dataNascimentoDate);
-
-  // Ajustar a idade se o aniversário não ocorreu ainda este ano
-  if (
-    isBefore(
-      dataAtual,
-      new Date(
-        dataAtual.getFullYear(),
-        dataNascimentoDate.getMonth(),
-        dataNascimentoDate.getDate(),
-      ),
-    )
-  ) {
-    idade--;
-  }
-
-  // Verificar se a idade é inferior à mínima
-  if (idade < idadeMinima) {
-    throw new HttpException(
-      'Usuário com idade inferior à permitida.',
-      HttpStatus.BAD_REQUEST,
-    );
-  }
-}
+import { validarIdade } from '../../util/validarIdade';
 
 @Injectable()
 export class UsuarioService {
@@ -45,7 +12,7 @@ export class UsuarioService {
   ) {}
 
   async findAll(): Promise<Usuario[]> {
-    return await this.usuarioRepository.find({});
+    return await this.usuarioRepository.find({ relations: { viagem: true } });
   }
 
   async findById(id: number): Promise<Usuario> {
@@ -53,6 +20,7 @@ export class UsuarioService {
       where: {
         id,
       },
+      relations: { viagem: true },
     });
 
     if (!usuario)
@@ -66,6 +34,7 @@ export class UsuarioService {
       where: {
         tipo_usuario: ILike(`%${tipo_usuario}%`), // Permite que "moto" pegue "motociclista", por exemplo
       },
+      relations: { viagem: true },
     });
 
     // Se não encontrar nenhum usuário com o tipo informado, lançar exceção

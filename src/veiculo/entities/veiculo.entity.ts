@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Viagem } from '../../viagem/entities/viagem.entity';
 
 @Entity({ name: 'tb_veiculos' })
 export class Veiculo {
@@ -66,6 +67,6 @@ export class Veiculo {
   @UpdateDateColumn()
   atualizado_em: Date;
 
-  //@OneToMany(() => Viagem, (viagem) => viagem.veiculo)
-  //viagem: Viagem[];
+  @OneToMany(() => Viagem, (viagem) => viagem.veiculo)
+  viagem: Viagem[];
 }

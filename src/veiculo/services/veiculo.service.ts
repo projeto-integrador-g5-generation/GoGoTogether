@@ -11,7 +11,9 @@ export class VeiculoService {
   ) {}
 
   async findAll(): Promise<Veiculo[]> {
-    return this.veiculoRepository.find({});
+    return this.veiculoRepository.find({
+      relations: { viagem: true },
+    });
   }
 
   async findById(id: number): Promise<Veiculo> {
@@ -19,6 +21,7 @@ export class VeiculoService {
       where: {
         id,
       },
+      relations: { viagem: true },
     });
 
     if (!veiculo)
@@ -32,6 +35,7 @@ export class VeiculoService {
       where: {
         modelo: ILike(`%${modelo}%`),
       },
+      relations: { viagem: true },
     });
   }
 
@@ -40,6 +44,7 @@ export class VeiculoService {
       where: {
         categoria: ILike(`%${categoria}%`),
       },
+      relations: { viagem: true },
     });
   }
 

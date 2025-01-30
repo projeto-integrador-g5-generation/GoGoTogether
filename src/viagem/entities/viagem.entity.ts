@@ -13,12 +13,13 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  IsNull,
+  ManyToOne,
 } from 'typeorm';
 import { NumericTransformer } from '../../util/numerictransformer';
+import { Veiculo } from '../../veiculo/entities/veiculo.entity';
+import { Usuario } from '../../usuario/entities/usuario.entity';
 
-
-@Entity({ name: 'tb_viagens' }) 
+@Entity({ name: 'tb_viagens' })
 export class Viagem {
   @PrimaryGeneratedColumn()
   id: number;
@@ -40,7 +41,7 @@ export class Viagem {
   @Column({ type: 'datetime', nullable: false })
   data_hora_partida: Date;
 
-  @IsNumber({maxDecimalPlaces: 2})
+  @IsNumber({ maxDecimalPlaces: 2 })
   @IsNotEmpty()
   @IsPositive()
   @Column({
@@ -53,7 +54,7 @@ export class Viagem {
 
   @IsNotEmpty()
   @IsString()
-  @IsIn(['agendada', 'em_andamento', 'concluida', 'cancelada']) 
+  @IsIn(['agendada', 'em_andamento', 'concluida', 'cancelada'])
   @Column({ length: 50, nullable: false })
   status_viagem: string;
 
@@ -66,7 +67,7 @@ export class Viagem {
     transformer: new NumericTransformer(),
     nullable: false,
   })
-  distancia: number; 
+  distancia: number;
 
   @IsNumber()
   @IsPositive()
@@ -84,9 +85,15 @@ export class Viagem {
     precision: 10,
     scale: 2,
     transformer: new NumericTransformer(),
-    nullable: true, 
+    nullable: true,
   })
-  duracao_estimada: number; 
+  duracao_estimada: number;
+
+  @ManyToOne(() => Veiculo, (veiculo) => veiculo.viagem)
+  veiculo: Veiculo;
+
+  @ManyToOne(() => Usuario, (usuario) => usuario.usuario)
+  usuario: Usuario;
 
   @CreateDateColumn({ name: 'criado_at' })
   criado_at: Date;
