@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { VeiculoModule } from './veiculo/veiculo.module';
+import { VeiculoController } from './veiculo/controllers/veiculo.controller';
 
 @Module({
   imports: [
@@ -18,7 +20,7 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true,
       logging: true,
     }),
-
+    VeiculoModule
   ],
   controllers: [],
   providers: [],
