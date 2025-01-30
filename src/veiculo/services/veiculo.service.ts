@@ -1,70 +1,61 @@
-import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository, ILike, DeleteResult } from "typeorm";
-import { Veiculo } from "../entities/veiculo.entity";
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, ILike, DeleteResult } from 'typeorm';
+import { Veiculo } from '../entities/veiculo.entity';
 
 @Injectable()
-export class VeiculoService{
+export class VeiculoService {
+  constructor(
+    @InjectRepository(Veiculo)
+    private veiculoRepository: Repository<Veiculo>,
+  ) {}
 
-    constructor(
-        @InjectRepository(Veiculo)
-        private veiculoRepository: Repository<Veiculo>
-    ){}
+  async findAll(): Promise<Veiculo[]> {
+    return this.veiculoRepository.find({});
+  }
 
-    async findAll(): Promise<Veiculo[]>{
-        return this.veiculoRepository.find({
-        
-        }); 
-    }
+  async findById(id: number): Promise<Veiculo> {
+    const veiculo = await this.veiculoRepository.findOne({
+      where: {
+        id,
+      },
+    });
 
-    async findById(id:number): Promise<Veiculo>{
-        
-        
-        const veiculo = await this.veiculoRepository.findOne({
-            where: {
-                id
-            }
-        })
+    if (!veiculo)
+      throw new HttpException('Veículo não encontrado!', HttpStatus.NOT_FOUND);
 
-        if(!veiculo)
-            throw new HttpException('Veículo não encontrado!', HttpStatus.NOT_FOUND)
-        
-        return veiculo;
-    }
+    return veiculo;
+  }
 
-    async findByModelo(modelo: string): Promise<Veiculo[]>{
-        return this.veiculoRepository.find({
-            where: {
-                modelo: ILike(`%${modelo}%`)
-            }
-        }); 
-    }
+  async findByModelo(modelo: string): Promise<Veiculo[]> {
+    return this.veiculoRepository.find({
+      where: {
+        modelo: ILike(`%${modelo}%`),
+      },
+    });
+  }
 
-    async findByCategoria(categoria: string): Promise<Veiculo[]>{
-        return this.veiculoRepository.find({
-            where: {
-                categoria: ILike(`%${categoria}%`)
-            }
-        }); 
-    }
+  async findByCategoria(categoria: string): Promise<Veiculo[]> {
+    return this.veiculoRepository.find({
+      where: {
+        categoria: ILike(`%${categoria}%`),
+      },
+    });
+  }
 
-    async create(veiculo: Veiculo): Promise<Veiculo>{
-        
-        return await this.veiculoRepository.save(veiculo);
-    }
+  async create(veiculo: Veiculo): Promise<Veiculo> {
+    return await this.veiculoRepository.save(veiculo);
+  }
 
-    async update(veiculo: Veiculo): Promise<Veiculo>{
-        
-        await this.findById(veiculo.id)
-        
-        return await this.veiculoRepository.save(veiculo);
-    }
+  async update(veiculo: Veiculo): Promise<Veiculo> {
+    await this.findById(veiculo.id);
 
-    async delete(id: number): Promise<DeleteResult>{
-        await this.findById(id)
-        
-    
-        return await this.veiculoRepository.delete(id)
-    }
+    return await this.veiculoRepository.save(veiculo);
+  }
 
+  async delete(id: number): Promise<DeleteResult> {
+    await this.findById(id);
+
+    return await this.veiculoRepository.delete(id);
+  }
 }

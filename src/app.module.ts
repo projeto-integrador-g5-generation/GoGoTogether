@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { VeiculoModule } from './veiculo/veiculo.module';
-import { VeiculoController } from './veiculo/controllers/veiculo.controller';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -20,7 +20,8 @@ import { VeiculoController } from './veiculo/controllers/veiculo.controller';
       synchronize: true,
       logging: true,
     }),
-    VeiculoModule
+    VeiculoModule,
+    UsuarioModule,
   ],
   controllers: [],
   providers: [],
