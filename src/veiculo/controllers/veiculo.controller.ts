@@ -9,10 +9,13 @@ import {
   Body,
   Put,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { VeiculoService } from '../services/veiculo.service';
 import { Veiculo } from '../entities/veiculo.entity';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('/veiculos')
 export class VeiculoController {
   constructor(private readonly veiculoService: VeiculoService) {}
