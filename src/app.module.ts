@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { ViagemModule } from './viagem/viagem.module';
 
 @Module({
   imports: [
@@ -18,7 +19,6 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true,
       logging: true,
     }),
-
   ],
   controllers: [],
   providers: [],
