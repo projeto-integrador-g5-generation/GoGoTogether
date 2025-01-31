@@ -7,6 +7,7 @@ import { ViagemModule } from './viagem/viagem.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { DevService } from './data/service/dev.service';
+import { ProdService } from './data/service/prod.service';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { DevService } from './data/service/dev.service';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
-      useClass: DevService,
+      useClass: ProdService,
       imports: [ConfigModule],
     }),
     VeiculoModule,
