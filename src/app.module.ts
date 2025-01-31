@@ -15,7 +15,7 @@ import { ProdService } from './data/service/prod.service';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
-      useClass: ProdService,
+      useClass: DevService,
       imports: [ConfigModule],
     }),
     VeiculoModule,
