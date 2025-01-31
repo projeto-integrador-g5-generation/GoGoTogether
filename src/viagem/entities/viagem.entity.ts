@@ -99,11 +99,11 @@ export class Viagem {
   duracao_estimada: number;
 
   @ApiProperty({ type: () => Veiculo })
-  @ManyToOne(() => Veiculo, (veiculo) => veiculo.viagem)
+  @ManyToOne(() => Veiculo, (veiculo) => veiculo.viagem, {onDelete: 'CASCADE'})
   veiculo: Veiculo;
 
   @ApiProperty({ type: () => Usuario })
-  @ManyToOne(() => Usuario, (usuario) => usuario.usuario)
+  @ManyToOne(() => Usuario, (usuario) => usuario.viagem , {onDelete: 'CASCADE'})
   usuario: Usuario;
 
   @ApiProperty()
