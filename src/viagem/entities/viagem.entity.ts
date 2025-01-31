@@ -42,7 +42,7 @@ export class Viagem {
 
   @IsNotEmpty()
   @IsDateString()
-  @Column({ type: 'datetime', nullable: false })
+  @Column({ type: 'timestamp', nullable: false })
   @ApiProperty()
   data_hora_partida: Date;
 
