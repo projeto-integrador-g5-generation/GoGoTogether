@@ -3,10 +3,10 @@ import { IsEmail, IsString } from 'class-validator';
 
 export class UsuarioLogin {
   @IsEmail()
-  @ApiProperty() 
+  @ApiProperty()
   public usuario: string;
 
   @IsString()
-  @ApiProperty() 
+  @ApiProperty()
   public senha: string;
 }

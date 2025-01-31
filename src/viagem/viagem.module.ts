@@ -9,7 +9,12 @@ import { VeiculoService } from '../veiculo/services/veiculo.service';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Viagem]), VeiculoModule, UsuarioModule, AuthModule],
+  imports: [
+    TypeOrmModule.forFeature([Viagem]),
+    VeiculoModule,
+    UsuarioModule,
+    AuthModule,
+  ],
   controllers: [ViagemController],
   providers: [ViagemService, VeiculoService],
   exports: [TypeOrmModule],

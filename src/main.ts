@@ -8,12 +8,18 @@ async function bootstrap() {
 
   process.env.TZ = '-03.00';
   const config = new DocumentBuilder()
-  .setTitle('GoGoTogether')
-  .setDescription('Projeto GoGoTogether')
-  .setContact("Grupo 05 ","https://github.com/projeto-integrador-g5-generation/GoGoTogether/tree/main","")
-  .setVersion('1.0')
-  .addBearerAuth()
-  .build();
+    .setTitle('GoGoTogether')
+    .setDescription(
+      'O GoGoTogether é um sistema de caronas que conecta motoristas e passageiros para viagens econômicas, seguras e sustentáveis. Com um sistema intuitivo, os usuários podem oferecer ou buscar caronas de forma simples e confiável. O sistema facilita a comunicação entre usuários, permitindo reservas, pagamentos e avaliações, tornando cada viagem mais segura e acessível!',
+    )
+    .setContact(
+      'Grupo 05 ',
+      'https://github.com/projeto-integrador-g5-generation/GoGoTogether/tree/main',
+      '',
+    )
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/swagger', app, document);
   app.useGlobalPipes(new ValidationPipe());

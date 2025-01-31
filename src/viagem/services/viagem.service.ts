@@ -43,15 +43,18 @@ export class ViagemService {
   async create(viagem: Viagem): Promise<Viagem> {
     const veiculo = await this.veiculoService.findById(viagem.veiculo.id);
 
-    if(veiculo.assentos_disponiveis <= 0){
-      throw new HttpException('Esse veículo não possui mais assentos disponíveis.', HttpStatus.BAD_REQUEST);
+    if (veiculo.assentos_disponiveis <= 0) {
+      throw new HttpException(
+        'Esse veículo não possui mais assentos disponíveis.',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
-    veiculo.assentos_disponiveis = veiculo.assentos_disponiveis -1;
+    veiculo.assentos_disponiveis = veiculo.assentos_disponiveis - 1;
 
     await this.usuarioService.findById(viagem.usuario.id);
 
-    await this.veiculoService.update(veiculo)
+    await this.veiculoService.update(veiculo);
 
     viagem.duracao_estimada = this.calcularDuracaoViagem(
       viagem.distancia,
@@ -62,10 +65,10 @@ export class ViagemService {
 
   async update(viagem: Viagem): Promise<Viagem> {
     await this.findById(viagem.id);
-    
+
     await this.veiculoService.findById(viagem.veiculo.id);
     await this.usuarioService.findById(viagem.usuario.id);
-    
+
     viagem.duracao_estimada = this.calcularDuracaoViagem(
       viagem.distancia,
       viagem.velocidade_media,

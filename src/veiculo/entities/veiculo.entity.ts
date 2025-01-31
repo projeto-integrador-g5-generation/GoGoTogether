@@ -81,7 +81,7 @@ export class Veiculo {
   @ApiProperty()
   atualizado_em: Date;
 
-  @ApiProperty({ type: () => Viagem} )
+  @ApiProperty({ type: () => Viagem })
   @OneToMany(() => Viagem, (viagem) => viagem.veiculo)
   viagem: Viagem[];
 }
