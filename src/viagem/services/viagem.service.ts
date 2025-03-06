@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, ILike, Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { Viagem } from '../entities/viagem.entity';
 import { VeiculoService } from '../../veiculo/services/veiculo.service';
 import { UsuarioService } from '../../usuario/services/usuario.service';
@@ -31,13 +31,6 @@ export class ViagemService {
     }
 
     return viagem;
-  }
-
-  async findByStatus(status: string): Promise<Viagem[]> {
-    return this.viagemRepository.find({
-      where: { status_viagem: ILike(`%${status}%`) },
-      relations: { veiculo: true, usuario: true },
-    });
   }
 
   async create(viagem: Viagem): Promise<Viagem> {

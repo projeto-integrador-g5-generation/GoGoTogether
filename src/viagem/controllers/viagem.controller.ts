@@ -35,12 +35,6 @@ export class ViagemController {
     return this.viagemService.findById(id);
   }
 
-  @Get('/status/:status')
-  @HttpCode(HttpStatus.OK)
-  findByTitulo(@Param('status') status: string): Promise<Viagem[]> {
-    return this.viagemService.findByStatus(status);
-  }
-
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() viagem: Viagem): Promise<Viagem> {
