@@ -60,7 +60,7 @@ export class Viagem {
 
   @IsNotEmpty()
   @IsNumber()
-  @Column({ length: 50, nullable: false })
+  @Column({ type: 'int', nullable: false })
   @ApiProperty()
   status_viagem: number;
 
