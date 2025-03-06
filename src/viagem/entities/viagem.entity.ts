@@ -59,11 +59,10 @@ export class Viagem {
   preco: number;
 
   @IsNotEmpty()
-  @IsString()
-  @IsIn(['agendada', 'em_andamento', 'concluida', 'cancelada'])
+  @IsNumber()
   @Column({ length: 50, nullable: false })
   @ApiProperty()
-  status_viagem: string;
+  status_viagem: number;
 
   @IsNumber()
   @IsPositive()
